@@ -1,6 +1,6 @@
 # Mentoxy landing page
 
-Static prototype prepared for Cloudflare Pages. Open `public/index.html` locally or serve the `public/` directory with any static web server. All fonts and images are in `public/assets/`.
+Static prototype prepared for Cloudflare Pages. Open `public/index.html` locally or serve the `public/` directory with any static web server. Fonts are in `public/assets/`; the background and card media are looping videos (with still posters) loaded directly from Higgsfield CDN URLs, so the page needs a network connection to show them.
 
 The opening composition has a one-time entrance sequence, including the visible cards' titles and data. It stops after the initial load, and users who prefer reduced motion see the page immediately.
 

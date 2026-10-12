@@ -67,14 +67,16 @@ img{display:block}
   position:relative;
   min-height:100vh;
   min-height:100svh;
-  background:var(--page-bg) url(assets/background.webp) center top / cover no-repeat;
+  background:var(--page-bg);
 }
+.page-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;pointer-events:none}
 
 /* =========================  DESKTOP STAGE  ========================= */
 .stage{
   --u:max(min(100cqw / 1440, 100svh / 1032.2), 100cqw / 1440 * 0.72);
   --c:var(--u);
   position:relative;
+  z-index:1;
   width:calc(var(--u) * 1440);
   max-width:100%;
   margin:0 auto;
@@ -128,10 +130,10 @@ img{display:block}
 
 .card{position:relative;container-type:inline-size;height:100%;border-radius:calc(var(--c) * 24);overflow:hidden;isolation:isolate;background:#555}
 .card-body{position:absolute;inset:0;color:var(--white)}
-.card-bg{position:absolute;inset:0;background:var(--img) center / cover no-repeat}
+.card-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 50%)}
 .card-glass{position:absolute;inset:0;-webkit-backdrop-filter:blur(var(--glass-blur));backdrop-filter:blur(var(--glass-blur));background:var(--glass-tint)}
 .card-window{position:absolute;left:calc(var(--c) * 40);top:calc(var(--c) * 40);right:calc(var(--c) * 40);bottom:calc(var(--c) * 40);border-radius:calc(var(--c) * 25);overflow:hidden;transform:translateZ(0)}
-.card-window .win-img{position:absolute;left:calc(var(--c) * -40);top:calc(var(--c) * -40);width:calc(100% + calc(var(--c) * 80));height:calc(100% + calc(var(--c) * 80));background:var(--img) center / cover no-repeat}
+.card-window .win-img{position:absolute;left:calc(var(--c) * -40);top:calc(var(--c) * -40);width:calc(100% + calc(var(--c) * 80));height:calc(100% + calc(var(--c) * 80));background:var(--img) var(--pos,50% 50%) / cover no-repeat}
 .card-window .win-tint{position:absolute;inset:0;background:var(--win-tint,transparent)}
 .card-frame{position:absolute;left:calc(var(--c) * 40);top:calc(var(--c) * 40);right:calc(var(--c) * 40);bottom:calc(var(--c) * 40);border-radius:calc(var(--c) * 25);border:calc(var(--c) * 1.4) solid rgba(255,255,255,.9);pointer-events:none}
 
@@ -140,13 +142,11 @@ img{display:block}
 .lbl{position:absolute;width:calc(var(--c) * 40);margin-left:calc(var(--c) * -20);text-align:center;font-size:calc(var(--c) * 12);line-height:1;white-space:nowrap}
 
 /* Sleep */
-.card--sleep .card-bg,.card--sleep .win-img{background-size:auto calc(100% + calc(var(--c) * 1.4));background-position:50% 0}
-.card--sleep{--glass-blur:calc(var(--c) * 4.2);--glass-tint:linear-gradient(90deg,rgba(255,255,255,.06),rgba(255,255,255,0) 45%,rgba(0,0,0,0) 55%,rgba(0,0,0,.13)),rgba(135,130,150,.28);--win-tint:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,0) calc(var(--c) * 38)),linear-gradient(200deg,rgba(0,0,0,.17),rgba(0,0,0,0) 50%),rgba(0,0,0,.25)}
+.card--sleep{--pos:50% 0;--glass-blur:calc(var(--c) * 4.2);--glass-tint:linear-gradient(90deg,rgba(255,255,255,.06),rgba(255,255,255,0) 45%,rgba(0,0,0,0) 55%,rgba(0,0,0,.13)),rgba(135,130,150,.28);--win-tint:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,0) calc(var(--c) * 38)),linear-gradient(200deg,rgba(0,0,0,.17),rgba(0,0,0,0) 50%),rgba(0,0,0,.25)}
 .bar{position:absolute;width:calc(var(--c) * 10);margin-left:calc(var(--c) * -5);bottom:calc(100% - calc(var(--c) * 275.9));border-radius:calc(var(--c) * 5);background:linear-gradient(180deg,#8eb3f7 0%,#fff 44%,rgba(255,255,255,0) 100%)}
 
 /* Biomarkers */
-.card--bio .card-bg,.card--bio .win-img{background-size:calc(100% + calc(var(--c) * 2.8)) auto;background-position:0 50%}
-.card--bio{--glass-blur:calc(var(--c) * 3);--glass-tint:rgba(202,211,212,.34);--win-tint:rgba(190,225,225,.12)}
+.card--bio{--pos:0 50%;--glass-blur:calc(var(--c) * 3);--glass-tint:rgba(202,211,212,.34);--win-tint:rgba(190,225,225,.12)}
 .stat{position:absolute;left:calc(var(--c) * 55.8);top:calc(var(--c) * 303.7);width:calc(var(--c) * 299.5);height:calc(var(--c) * 79.4);border-radius:calc(var(--c) * 5.6);-webkit-backdrop-filter:blur(calc(var(--c) * 4));backdrop-filter:blur(calc(var(--c) * 4));background:rgba(232,246,246,.28)}
 .stat-val{position:absolute;left:calc(var(--c) * 68.9);top:calc(var(--c) * 320.3);font-size:calc(var(--c) * 16);line-height:1;white-space:nowrap}
 .stat-k{position:absolute;top:calc(var(--c) * 357.1);font-size:calc(var(--c) * 12);line-height:1;white-space:nowrap}
@@ -157,7 +157,6 @@ img{display:block}
 /* HRV */
 .card--hrv{--glass-blur:calc(var(--c) * 3);--glass-tint:rgba(226,229,223,.24)}
 .card--hrv .win-img{filter:blur(calc(var(--c) * 1.2))}
-.card--hrv .zoom{transform-origin:25% 35%}
 .chart{position:absolute;left:0;top:0;width:calc(var(--c) * 412);height:calc(var(--c) * 439.4);overflow:visible}
 .card-data{position:absolute;inset:0}
 
@@ -247,6 +246,7 @@ img{display:block}
 </head>
 <body>
 <div class="page">
+  <video class="page-bg" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20261012_100556_b3ff6953-6e15-4c06-be1a-4528e5242338.mp4" poster="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/e3292654-b211-4a13-8b22-d1de72b41cc0.webp" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
   <div class="stage">
     <header class="nav" id="nav">
       <a class="brand" href="#" aria-label="Mentoxy home">
@@ -284,12 +284,12 @@ img{display:block}
 
     <section class="cards" aria-label="Health insights">
       <!-- Sleep -->
-      <article class="card card--sleep" style="--img:url(assets/sleep.webp)">
+      <article class="card card--sleep" style="--img:url(https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/d6a3eac2-83d4-49aa-8f84-cfcf5a071020.webp)">
         <div class="card-body">
-          <div class="card-bg" aria-hidden="true"></div>
+          <video class="card-bg" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20261012_100739_107173c4-24d8-48ed-8f31-0ee407cee8b4.mp4" poster="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/d6a3eac2-83d4-49aa-8f84-cfcf5a071020.webp" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
           <div class="card-glass"></div>
           <div class="card-window">
-            <div class="win-img" role="img" aria-label="Woman resting with eyes closed"></div>
+            <canvas class="win-img" role="img" aria-label="Woman resting with eyes closed"></canvas>
             <div class="win-tint"></div>
           </div>
           <div class="card-frame"></div>
@@ -322,12 +322,12 @@ img{display:block}
       </article>
 
       <!-- Biomarkers -->
-      <article class="card card--bio" style="--img:url(assets/biomarkers.webp)">
+      <article class="card card--bio" style="--img:url(https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/f416ec8e-7fce-4fea-b1bb-9fc1ce9dfbba.webp)">
         <div class="card-body">
-          <div class="card-bg" aria-hidden="true"></div>
+          <video class="card-bg" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20261012_100738_6dd3a176-a0ae-4484-b3e0-28cf7d241471.mp4" poster="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/f416ec8e-7fce-4fea-b1bb-9fc1ce9dfbba.webp" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
           <div class="card-glass"></div>
           <div class="card-window">
-            <div class="win-img" role="img" aria-label="Young man holding his head"></div>
+            <canvas class="win-img" role="img" aria-label="Young man holding his head"></canvas>
             <div class="win-tint"></div>
           </div>
           <div class="card-frame"></div>
@@ -343,18 +343,12 @@ img{display:block}
       </article>
 
       <!-- HRV -->
-      <article class="card card--hrv" style="--img:url(assets/hrv.webp)">
+      <article class="card card--hrv" style="--img:url(https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/ad54cd56-436f-482c-966c-ccbe39830885.webp)">
         <div class="card-body">
-          <div class="card-bg" aria-hidden="true"></div>
+          <video class="card-bg" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20261012_100705_c613837f-9010-4683-b269-289f2872726f.mp4" poster="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/ad54cd56-436f-482c-966c-ccbe39830885.webp" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
           <div class="card-glass"></div>
           <div class="card-window">
-            <div class="win-img" role="img" aria-label="Woman with short hair, eyes closed"></div>
-            <div class="win-img zoom" aria-hidden="true" style="transform:scale(1.0180);opacity:0.5000"></div>
-            <div class="win-img zoom" aria-hidden="true" style="transform:scale(1.0360);opacity:0.3333"></div>
-            <div class="win-img zoom" aria-hidden="true" style="transform:scale(1.0540);opacity:0.2500"></div>
-            <div class="win-img zoom" aria-hidden="true" style="transform:scale(1.0720);opacity:0.2000"></div>
-            <div class="win-img zoom" aria-hidden="true" style="transform:scale(1.0900);opacity:0.1667"></div>
-            <div class="win-img zoom" aria-hidden="true" style="transform:scale(1.1080);opacity:0.1429"></div>
+            <canvas class="win-img" role="img" aria-label="Woman with short hair, eyes closed" data-zoom-layers="6" data-zoom-step="0.018" data-zoom-origin="0.25 0.35"></canvas>
           </div>
           <div class="card-frame"></div>
           <h2 class="c-title" style="left:calc(var(--c) * 57);top:calc(var(--c) * 59)">HRV</h2>
@@ -409,6 +403,55 @@ img{display:block}
   document.addEventListener('click',function(e){if(!nav.contains(e.target))set(false);});
   document.addEventListener('keydown',function(e){if(e.key==='Escape')set(false);});
   matchMedia('(min-width: 900px) and (min-aspect-ratio: 1/1)').addEventListener('change',function(){set(false);});
+})();
+</script>
+<script>
+// Card windows mirror the card's own video frame-for-frame, so the sharp window and the frosted surround never drift apart.
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)');
+  function applyMotion(video){
+    if(reduce.matches)video.pause();
+    else{var p=video.play();if(p&&p.catch)p.catch(function(){});}
+  }
+  var videos=[].slice.call(document.querySelectorAll('video'));
+  videos.forEach(applyMotion);
+  reduce.addEventListener('change',function(){videos.forEach(applyMotion)});
+
+  document.querySelectorAll('.card').forEach(function(card){
+    var video=card.querySelector('video.card-bg'),canvas=card.querySelector('canvas.win-img');
+    if(!video||!canvas)return;
+    var ctx=canvas.getContext('2d');
+    var layers=+canvas.dataset.zoomLayers||0,step=+canvas.dataset.zoomStep||0;
+    var origin=(canvas.dataset.zoomOrigin||'0.5 0.5').split(' ').map(Number);
+    var pos=getComputedStyle(video).objectPosition.split(' ').map(function(v){return parseFloat(v)/100});
+
+    function resize(){
+      var dpr=Math.min(window.devicePixelRatio||1,2);
+      var w=Math.round(canvas.clientWidth*dpr),h=Math.round(canvas.clientHeight*dpr);
+      if(!w||!h)return;
+      if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;}
+      draw();
+    }
+    function draw(){
+      if(video.readyState<2||!canvas.width)return;
+      var W=canvas.width,H=canvas.height,vw=video.videoWidth,vh=video.videoHeight;
+      var s=Math.max(W/vw,H/vh),dw=vw*s,dh=vh*s,dx=(W-dw)*pos[0],dy=(H-dh)*pos[1];
+      for(var k=0;k<=layers;k++){
+        var z=1+step*k;
+        ctx.setTransform(z,0,0,z,W*origin[0]*(1-z),H*origin[1]*(1-z));
+        ctx.globalAlpha=1/(k+1);
+        ctx.drawImage(video,dx,dy,dw,dh);
+      }
+    }
+    function loop(){
+      draw();
+      if(video.requestVideoFrameCallback)video.requestVideoFrameCallback(loop);
+      else requestAnimationFrame(loop);
+    }
+    new ResizeObserver(resize).observe(canvas);
+    video.addEventListener('loadeddata',resize);
+    loop();
+  });
 })();
 </script>
 <script>
